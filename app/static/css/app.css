@@ -6,6 +6,7 @@ body {
     font-family: 'Poppins', sans-serif;
     padding-top: 5rem;
     background-color: #f5f5f5;
+    color: #333;
 }
 
 .container {
@@ -19,9 +20,9 @@ h2.text-center {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
     font-size: 2.5rem;
-    color: #333;
     text-align: center;
     margin-bottom: 2rem;
+    color: #4CAF50;
 }
 
 /* Labels */
@@ -128,7 +129,7 @@ input[type="submit"]:hover {
 .btn {
     display: inline-block;
     padding: 8px 16px;
-    background-color: #007bff;
+    background-color: #4CAF50;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
@@ -138,7 +139,7 @@ input[type="submit"]:hover {
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
 }
 
 .btn i {
@@ -186,16 +187,17 @@ input[type="submit"]:hover {
     font-size: 1rem;
     display: inline-flex;
     align-items: center;
+    margin-right: 10px;
 }
 
 .price-bubble {
     background-color: rgba(220, 53, 69, 0.2);
-    color: yellowgreen;
+    color: #dc3545;
 }
 
 .type-bubble {
     background-color: rgba(108, 117, 125, 0.2);
-    color: yellowgreen;
+    color: #6c757d;
 }
 
 .property-info p {
@@ -205,6 +207,7 @@ input[type="submit"]:hover {
 
 .property-info p i {
     color: #333;
+    margin-right: 5px;
 }
 
 .property-info .btn {
@@ -252,23 +255,4 @@ input[type="submit"]:hover {
     .property-info {
         min-width: 0;
     }
-}
-
-.price-bubble,
-.type-bubble {
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 1rem;
-    display: inline-flex;
-    align-items: center;
-}
-
-.price-bubble {
-    background-color: yellowgreen(220, 53, 69, 0.2);
-    color:yellowgreen;
-}
-
-.type-bubble {
-    background-color: yellowgreen(108, 117, 125, 0.2);
-    color: yellowgreen;
 }
