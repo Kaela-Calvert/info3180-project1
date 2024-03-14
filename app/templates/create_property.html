@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+{% include 'flash_messages.html' %}
+
+    <div class="container">
+        <h2 class="text-center">Add New Property</h2>
+        <form action="{{ url_for('create_property') }}" method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+            {{ form.file }}
+            <div class="form-group">
+                <label for="title">Title:</label><br>
+                <input type="text" id="title" name="title"><br>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label for="bedrooms">Number of Bedrooms:</label>
+                        <input type="number" id="bedrooms" name="bedrooms">
+                    </div>
+                    <div class="col">
+                        <label for="bathrooms">Number of Bathrooms:</label>
+                        <input type="number" id="bathrooms" name="bathrooms">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Location:</label><br>
+                <input type="text" id="location" name="location"><br>
+            </div>
+            
+            <div class="form-group">
+                <label for="price">Price:</label><br>
+                <input type="text" id="price" name="price"><br>
+            </div>
+            
+            <div class="form-group">
+                <label for="type">Type:</label><br>
+                <select id="type" name="type">
+                    <option value="House">House</option>
+                    <option value="Apartment">Apartment</option>
+                </select><br>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description:</label><br>
+                <textarea id="description" name="description"></textarea><br>
+            </div>
+            
+            <div class="form-group">
+                <label for="photo">Upload Photo:</label><br>
+                <input type="file" id="photo" name="photo"><br><br>
+            </div>
+            
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock %}

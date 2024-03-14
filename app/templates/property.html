@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="property-details">
+    <div class="property-image">
+        <img src="{{ url_for('get_image', filename=property.photo) }}" alt="Property Image">
+    </div>
+    <div class="property-info">
+        <h2>{{ property.title }}</h2>
+        <div class="d-flex mb-3">
+            <p class="price-bubble text-primary fw-bold"><i class="fas fa-dollar-sign me-2"></i>{{ property.price }}</p>
+            <p class="type-bubble text-secondary fw-bold"><i class="fas fa-home me-2"></i>{{ property.type }}</p>
+        </div>
+        <p>{{ property.description }}</p>
+        <div class="d-flex mb-3">
+            <p class="me-4"><i class="fas fa-bed me-2"></i>{{ property.bedrooms }} Bedrooms</p>
+            <p><i class="fas fa-bath me-2"></i>{{ property.bathrooms }} Bathrooms</p>
+        </div>
+        <p><i class="fas fa-map-marker-alt me-2"></i>{{ property.location }}</p>
+        <button class="btn btn-primary me-2"><i class="fas fa-envelope me-2"></i>Email Realtor</button>
+    </div>
+</div>
+{% endblock %}

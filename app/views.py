@@ -4,14 +4,31 @@ Jinja2 Documentation:    https://jinja.palletsprojects.com/
 Werkzeug Documentation:  https://werkzeug.palletsprojects.com/
 This file contains the routes for your application.
 """
-
-from app import app
-from flask import render_template, request, redirect, url_for
-
+import os
+from flask import render_template, request, redirect, url_for, flash, session, abort, send_from_directory
+from werkzeug.utils import secure_filename
+from app import app, db
+from app.models import Property
+from app.forms import PropertyForm
 
 ###
 # Routing for your application.
 ###
+
+# def get_uploaded_images():
+#     rootdir = os.getcwd() + '/uploads'
+#     image_files = []
+#     for subdir, dirs, files in os.walk(rootdir):
+#         for file in files:
+#             if file.endswith(('.jpg', '.png','.jpeg')):
+#                 image_files.append(file)
+#     return image_files
+
+
+@app.route('/uploads/<filename>')
+def get_image(filename):
+    return send_from_directory(os.path.join(os.getcwd(), 'uploads'), filename)
+
 
 @app.route('/')
 def home():
@@ -24,6 +41,60 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
+app.config['UPLOAD_FOLDER'] = './uploads'
+@app.route('/properties/create', methods=['GET', 'POST'])
+def create_property():
+    form = PropertyForm()
+    if form.validate_on_submit():
+        # Save the uploaded file
+        file = request.files['photo']
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        # Save the form data to the database
+        property = Property(
+            title=form.title.data,
+            bedrooms=form.bedrooms.data,
+            bathrooms=form.bathrooms.data,
+            location=form.location.data,
+            price=form.price.data,
+            type=form.type.data,
+            description=form.description.data,
+            photo=filename  
+        )
+        db.session.add(property)
+        db.session.commit()
+        
+        flash('Property added successfully!', 'success')
+        return redirect(url_for('properties'))
+        #return render_template('properties.html')
+    return render_template('create_property.html', form=form)
+
+
+# # Route to display a list of all properties in the database
+# @app.route('/properties')
+# def properties():
+#     properties = Property.query.all()
+#     for property in properties:
+#         property.photo = os.path.join(app.config['UPLOAD_FOLDER'], property.photo)
+#         # print(property.photo)
+#     return render_template('properties.html', properties=properties)
+
+@app.route('/properties')
+def properties():
+    properties = Property.query.all()
+    # image_files = get_uploaded_images()  # Get a list of uploaded image filenames
+    for property in properties:
+        # if property.photo in image_files:
+        #     property.photo = url_for('get_image', filename=property.photo)
+        
+        return render_template('properties.html', properties=properties)
+
+# Route to view an individual property by its ID
+@app.route('/properties/<int:propertyid>')
+def view_property(propertyid):
+    property = Property.query.get_or_404(propertyid)    
+    return render_template('property.html', property=property)
 
 ###
 # The functions below should be applicable to all Flask apps.

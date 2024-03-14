@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}List of Properties{% endblock %}
+
+{% block main %}
+<h1>Properties</h1>
+<div class="properties">
+    {% for property in properties %}
+    <div class="property">
+        <img src="{{ url_for('get_image', filename=property.photo) }}" alt="Property Image">
+        <div class="details">
+            <h2>{{ property.title }}</h2>
+            <p><i class="fas fa-map-marker-alt"></i><strong> Location:</strong> {{ property.location }}</p>
+            <p><i class="fas fa-dollar-sign me-2"></i>Price:</strong> {{ property.price }}</p>
+            <a href="{{ url_for('view_property', propertyid=property.id) }}" class="btn"><i class="fas fa-eye"></i>View Property</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
